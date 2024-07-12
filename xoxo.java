@@ -1,8 +1,43 @@
-import java.util.Scanner;
+import java.util.*;
+
 
 class xoxo{
     public static void main(String[] args) {
+        try {
+
+        Game a = new Game();
+        player p1 = new player("arjun",'X');
+        player p2 = new player("raju",'O');
+
+      player cp;
+      cp = p1;
+       while(true){
+        a.display();
+        System.out.println(cp.name+" turn ");
+        cp.input();
+        if(a.rowwin() || a.colwin()){
+            System.out.println(cp.name+" has won");
+            a.display();
+
+            break;
+        }
+        if(cp==p1){
+            cp=p2;
+
+        }else{
+            cp=p1;
+        }
+        
+       }
        
+        
+       } catch (Exception e) {
+        System.out.println("Entered invalid input ! otherwise you play again  and again ");
+       }
+     
+
+
+
 
 
 
@@ -67,39 +102,43 @@ class Game{
         }
             
     }
-    class player{
-        
-        String name;
-        char mark;
-        player(String name,char mark){
-            this.name=name;
-            this.mark=mark; 
-            
-        }
-        void input(){
-            Scanner scan =new Scanner(System.in);
-            int row,col;
-            do{
-                System.out.println("ENTER YOUR ROW AND COL");
-                row=scan.nextInt();
-                col=scan.nextInt();
-    
-            }while(validinput(row, col));
-            Game.mark(row,col,mark);
-
-        }
-       
-    
-    
 }
-boolean validinput(int row,int col){
-    if(Game.board[row][col]==' '){
-        return true;
+ class player{
+        
+    String name;
+    char mark;
+    player(String name,char mark){
+        this.name=name;
+        this.mark=mark; 
+        
+    }
+
+    
+      void input(){
+        Scanner scan =new Scanner(System.in);
+        int row,col;
+        do{
+            System.out.println("ENTER YOUR ROW AND COL");
+            row=scan.nextInt();
+            col=scan.nextInt();
+
+        }while(!validinput(row, col));
+        Game.mark(row,col,mark);
 
     }
-    return false;
+
+
+
+
+boolean validinput(int row,int col){
+if(Game.board[row][col]==' '){
+    return true;
+
+}
+return false;
 
 }
 
 
 }
+
