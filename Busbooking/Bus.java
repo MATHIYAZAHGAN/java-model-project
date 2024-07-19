@@ -1,48 +1,95 @@
 import java.util.*;
 class Bus{
     public static void main(String[] args) {
+        Scanner scan = new Scanner (System.in);
+
         ArrayList<setc>  buses =new ArrayList<>();
         ArrayList<Booking>bookings=new ArrayList<>();
 
-        Scanner scan = new Scanner (System.in);
         buses.add(new setc(1,100,true));
         buses.add(new setc(2,50,false));
         while(true){
 
 
-        for(setc bus: buses){
-            bus.display();
+        for(setc b: buses){
+            b.display();
             
 
 
         }
-     
-        System.out.println("Enter your choices !!");
-        System.out.println("1------>Bookings");
-        System.out.println("2------>cancel");
-        System.out.println("3------>show booking details");
+        System.out.println();
+        System.out.println("---------------------------------------");
+
+        System.out.println(" ---------Enter your choices----------");
+        System.out.println("---------------------------------------");
+        System.out.println("|   1 ------>Bookings                 |");
+        System.out.println("---------------------------------------");
+
+        System.out.println("|   2 ------>cancel                   |");
+        System.out.println("---------------------------------------");
+
+        System.out.println("|   3 ------>show booking details     |");
+        System.out.println("---------------------------------------");
+        System.out.println("---------------------------------------");
+
 
         int choice = scan.nextInt();
+        System.out.println("---------------------------------------");
+
          switch (choice) {
             case 1:
             Booking b =new Booking();
             if(b.seatbooking(buses)){
-                System.out.println(" BOOKED ");
+                bookings.add(b);
+                System.out.println("****************");
+                System.out.println(" ----BOOKED ----");
+                System.out.println("****************");
+                System.out.println();
+
             }else{
-                System.out.println("NOT ENOUGH SEATS");
+                System.out.println("**************************");
+                System.out.println("|--> NOT ENOUGH SEATS <--|");
+                System.out.println("**************************");
+                System.out.println();
+
+
+
             }
             
                 break;
                 case 2:
                 scan.nextLine();
-                System.out.println("enter name to cancle...");
+                System.out.println("**************************");
+                System.out.println("|-->ENTER NAME TO CANCEL..");
+                System.out.println("**************************");
+
                 String name = scan.nextLine();
                 if (Booking.cancle(name,bookings,buses)){
-                    System.out.println("cancled...");
+                    System.out.println("*****************************");
+                    System.out.println("|-------> CANCELED <-------|");
+                    System.out.println("*****************************");
+
+                }else{
+                    System.out.println("****************************");
+                    System.out.println("|----> INVALID BOOKING <----|");
+                    System.out.println("****************************");
+
                 }
                 break;
                 case 3 :
-             
+                if(bookings.isEmpty()){
+                    System.out.println("****************************");
+                    System.out.println("|-->  NO BOOKING FOUND  <--|");
+                    System.out.println("****************************");
+
+                }else{
+                    for(Booking book : bookings){
+                        book.display();
+                    }
+                 
+
+                }
+               
                 
                 break;
 
@@ -94,22 +141,37 @@ class setc{
     }
 
     void display(){
-        System.out.println("BusNO : " +busNo+" | capacity "+capcity+" |  ac "+ ac );
+        System.out.println("---------------------------------------");
+        System.out.println("| BusNO : " +busNo+" | capacity "+capcity+" |  ac "+ ac+" |" );
+        System.out.println("---------------------------------------");
+
     }
 
 }
 class Booking{
-    Scanner scan = new Scanner(System.in);
     String name;
-    int BusNo;
-    int seat;
+    int busNo;
+    int seats;
     Booking(){
+        Scanner scan = new Scanner(System.in);
+
         System.out.println("Enter your name :");
+        System.out.println("---------------------------------------");
+
         name= scan.nextLine();
+        System.out.println("---------------------------------------");
+
         System.out.println("Enter your Busno ");
-        BusNo=scan.nextInt();
+        System.out.println("---------------------------------------");
+
+        busNo=scan.nextInt();
+        System.out.println("---------------------------------------");
+
         System.out.println("Enter your seat ");
-        seat=scan.nextInt();
+        System.out.println("---------------------------------------");
+
+        seats=scan.nextInt();
+        System.out.println();
 
 
     }
@@ -117,8 +179,8 @@ class Booking{
         for (Booking b : bookings){
             if (b.name.equalsIgnoreCase(name)){
                 for (setc bus: buses){
-                    if (b.BusNo == bus.getbusNo()){
-                        bus.setcapacity(bus.getcapacity() + b.seat);
+                    if (b.busNo == bus.getbusNo()){
+                        bus.setcapacity(bus.getcapacity() + b.seats);
                         bookings.remove(b);
                         return true;
                     }
@@ -129,14 +191,20 @@ class Booking{
 
         return false;
     }
+    void display(){
+        System.out.println("**************************************************************");
+        System.out.println("| NAME : "+name+"  || BUS NO : " +busNo+" || BOOKEDSEATS "+seats+" |");
+        System.out.println("**************************************************************");
+
+    }
 
     boolean seatbooking(ArrayList<setc>  buses){
    
         for(setc b :buses){
-            if(b.getbusNo()==BusNo){
-            if(b.getcapacity()>seat){
+            if(b.getbusNo()==busNo){
+            if(b.getcapacity()>seats){
 
-                b.setcapacity(b.getcapacity()-seat);
+                b.setcapacity(b.getcapacity()-seats);
                 return true;
             }
             }
