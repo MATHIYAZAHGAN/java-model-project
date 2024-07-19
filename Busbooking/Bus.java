@@ -142,7 +142,7 @@ class setc{
 
     void display(){
         System.out.println("---------------------------------------");
-        System.out.println("| BusNO : " +busNo+" | capacity "+capcity+" |  ac "+ ac+" |" );
+        System.out.println("| BUSNO : " +busNo+" | CAPACITY "+capcity+" |  AC "+ ac+" |" );
         System.out.println("---------------------------------------");
 
     }
